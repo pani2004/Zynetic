@@ -59,6 +59,6 @@ export const deleteProduct = asyncHandler(async (req, res) => {
     throw new ApiError(403, 'Unauthorized to delete this product');
   }
 
-  await product.remove();
-  res.status(200).json(new ApiResponse(200, null, 'Product deleted'),"Product deleted successfully");
+  await Product.findByIdAndDelete(req.params.id);
+  res.status(200).json(new ApiResponse(200, null, 'Product deleted successfully'));
 });

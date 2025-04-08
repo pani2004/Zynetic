@@ -7,6 +7,14 @@ export const notFound = (req, res, next) => {
 
 export const errorHandler = (err, req, res, next) => {
   const statusCode = err.statusCode || 500;
+  console.error(`Status Code: ${statusCode}`);
+  console.error(`Message: ${err.message}`);
+  if (err.errors) {
+    console.error(`Errors:`, err.errors);
+  }
+  if (process.env.NODE_ENV !== 'production') {
+    console.error(`Stack Trace:\n${err.stack}`);
+  }
 
   res.status(statusCode).json({
     success: false,
