@@ -19,15 +19,14 @@ const Login = () => {
       const res = await axios.post(
         '/api/auth/login',
         { email, password },
-        { withCredentials: true } // ✅ Send cookies (important!)
+        { withCredentials: true } 
       );
 
       console.log('Login Response:', res.data);
 
-      const { user } = res.data.data;
+      const { user, accessToken } = res.data.data;
+      dispatch(setCredentials({ user, token: accessToken }));
 
-      // ✅ Just store user (token is in cookie)
-      dispatch(setCredentials({ user }));
 
       console.log('Dispatch complete. Navigating to /products...');
       navigate('/products');
